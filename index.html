@@ -8,39 +8,120 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <title>Document</title>
+    <script src="app.js"></script>
 </head>
 <body>
     <h1>Hello Mohamed!!</h1>
-    <div class="create_party_container">
-        <div class="personal-info">
-            <h2>Personal Info</h2>
-            <!-- Personal info fields -->
-            <div class="form-field">
-                <label for="full-name">Full Name</label>
-                <input type="text" id="full-name" name="full-name" required>
-            </div>
-              <div class="form-field">
-                <label for="address">Address</label>
-                <textarea id="address" name="address" required></textarea>
-              </div>
-              <div class="form-field">
-                <label for="phone-number">Phone Number</label>
-                <input type="tel" id="phone-number" name="phone-number" required>
-              </div>
-              <div class="form-field">
-                <label for="type">Type</label>
-                <select id="type" name="type" required>
-                  <option value="">Select Type</option>
-                  <option value="customer">Customer</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
+    <div class="container">
+      <!-- PERSONAL INFO -->
+      <div class="personal-info" id="form-1">
+        <div class="number-indicator">1</div>
 
+        <h3 class="section-title">Personal Info</h3>
+        <div class="form-group">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" name="full-name" value="Mohamed">
         </div>
-        <div class="commerce-details">
-            <h2>Commerce Details</h2>
-            <!-- Commerce details fields -->
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" name="address" value="123 address lorem">
         </div>
+        <div class="form-group">
+          <label for="phone-number">Phone Number</label>
+          <input type="tel" id="phone-number" name="phone-number" value="06 65 78 94 25">
+        </div>
+        <div class="form-group">
+          <label for="type">Type</label>
+          <div class="select-wrapper">
+            <select id="type" name="type">
+              <option value="customer" selected>Customer</option>
+              <option value="customer" >Supplier</option>
+              <option value="customer" >Both</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="clear-btn">Clear</button>
+
+        <div class="page-indicators">
+          <span class="page-indicator active"></span>
+          <span class="page-indicator"></span>
+        </div>
+
+          <button class="next-btn">Next</button>
+      </div>
+
+      <!-- COMMERCE DETAILS -->
+      <div class="personal-info hidden" id="form-2">
+        <div class="number-indicator">2</div>
+        <h3 class="section-title">Commerce Details</h3>
+        <div class="form-group">
+          <div class="label-with-info">
+            <label for="nrc">NRC</label>
+            <button class="info-icon" data-tooltip="Numéro Registre Commerce: A unique identification number assigned to your business by the commercial registry">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+            </button>
+          </div>
+          <input type="text" id="nrc" name="nrc" value="123-456-789-459-321">
+        </div>
+        <div class="form-group">
+          <div class="label-with-info">
+            <label for="nrc">NIF</label>
+            <button class="info-icon" data-tooltip="Numéro d'Identification Fiscale">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+            </button>
+          </div>
+          <input type="text" id="nif" name="nif" value="654 256 879 254 368">
+        </div>
+        <div class="form-group">
+          <div class="label-with-info">
+            <label for="nrc">IA</label>
+            <button class="info-icon" data-tooltip="Identifiant Administratif">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+            </button>
+          </div>
+          <input type="text" id="ia" name="ia" value="06 65 78 94 25">
+        </div>
+        <div class="form-group">
+          <div class="label-with-info">
+            <label for="nrc">NIS</label>
+            <button class="info-icon" data-tooltip="Numéro d'Identification Sociale">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+            </button>
+          </div>
+          <input type="text" id="nis" name="nis" value="Customer">
+        </div>
+
+        <button class="clear-btn">Clear</button>
+
+        <div class="page-indicators">
+          <span class="page-indicator"></span>
+          <span class="page-indicator active"></span>
+        </div>
+        
+        <div class="form-actions">
+          <button class="prev-btn">Previous</button>
+          <button class="create-btn">Create</button>
+        </div>
+      </div>
     </div>
+
+
 </body>
 </html>
