@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    background-color: #ccc;
+}
+
+/* Layout */
+.create_party_container{
+    display: flex;
+    justify-content: space-between;
+    max-width: 800px;
+    background-color: antiquewhite;
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+.personal-info, 
+.commerce-details{
+    flex-basis: 47%;
+}
+
+/*  */
