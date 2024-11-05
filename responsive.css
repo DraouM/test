@@ -1,0 +1,53 @@
+/* Add this to your existing CSS */
+@media screen and (min-width: 768px) {
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      gap: 2rem;
+      justify-content: space-between;
+    }
+  
+    .personal-info,
+    .commerce-details {
+      max-width: 300px;
+      margin: 0;
+      flex: 1;
+    }
+  
+    /* Remove the hidden class styles for larger screens */
+    @media (min-width: 768px) {
+      .hidden {
+        display: block;
+      }
+    }
+  
+    /* Hide pagination elements on larger screens */
+    .number-indicator,
+    .page-indicators,
+    .next-btn {
+      display: none;
+    }
+  
+    /* Adjust form actions for desktop */
+    .form-actions {
+      justify-content: flex-end;
+    }
+  
+    /* Hide the previous button on desktop */
+    .prev-btn {
+      display: none;
+    }
+  
+    /* Adjust create button position */
+    .create-btn {
+      margin-top: 20px;
+    }
+  
+  
+    /* Add some breathing room between sections */
+    .section-title {
+      margin-bottom: 24px;
+    }
+  
+  }
