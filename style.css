@@ -1,107 +1,61 @@
+/* Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-body {
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    background-color: #ccc;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.container{
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  background-color: #ccc;
+}
+
+/* Container Styles */
+.container {
   max-width: 300px;
   background-color: #f1f1f1;
   padding: 20px;
   border-radius: 4px;
   margin: 0 auto;
-  position: relative; /* For absolute positioning of number indicator */
+  position: relative;
 }
-/* .personal-info, 
-.commerce-details {
-  } */
-  
-  .section-title {
-    color: #333;
-    font-size: 18px;
-    margin-bottom: 16px;
-  }
 
-    /* Make forms appear at the same height */
-  .form-group {
-    min-height: 1.5rem;
-    margin-bottom: 1rem;
-  }
 
-  
-  .form-group label {
-    display: block;
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 4px;
-  }
-  
-  .form-group input,
-  .form-group select {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .next-btn,
-  .clear-btn {
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-  }
+.hidden {
+  display: none;
+}
 
-  .next-btn{
-    color: white;
-    background-color: #4CAF50;
-    padding: 8px 16px;
-    display: block;
-    margin-left: auto;
-  }
-  
-.clear-btn {
-  background-color: transparent;
-  color: #4CAF50;
-  cursor: pointer;
+/* Form Sections */
+.section-title {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 16px;
+  padding-right: 40px;
+}
+
+.form-group {
+  min-height: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  color: #666;
   font-size: 14px;
-  font-style: italic;
+  margin-bottom: 4px;
 }
 
-.clear-btn:hover {
-  text-decoration: underline;
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
 }
-  .next-btn:hover {
-    background-color: #45a049;
-  }
 
-  .page-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin: 16px 0;
-  }
-  
-  .page-indicator {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #ccc;
-  }
-  
-  .page-indicator.active {
-    background-color: #4CAF50;
-  }
-
-
-  /* ... previous CSS rules ... */
-
+/* Select Wrapper */
 .select-wrapper {
   position: relative;
   width: 100%;
@@ -111,7 +65,7 @@ body {
   content: "";
   position: absolute;
   top: 50%;
-  right: 30px; /* Space for the arrow icon */
+  right: 30px;
   transform: translateY(-50%);
   width: 1px;
   height: 24px;
@@ -121,7 +75,7 @@ body {
 .select-wrapper select {
   width: 100%;
   padding: 8px 12px;
-  padding-right: 40px; /* Space for the divider and arrow */
+  padding-right: 40px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
@@ -137,6 +91,67 @@ body {
   border-color: #4CAF50;
 }
 
+/* Buttons */
+/* Primary Button */
+.primary-btn {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.primary-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+/* Secondary Button */
+.secondary-btn {
+  background-color: #E0E0E0;
+  color: #4CAF50;
+  font-weight: medium;
+  padding: 8px 16px;
+  border: 1px solid #4CAF50;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.2s ease;
+}
+
+.secondary-btn:hover {
+  background-color: #A5D6A7;
+  border-color: #388E3C;
+}
+
+/* Tertiary Button */
+.tertiary-btn {
+  background: none;
+  border: none;
+  color: #666;
+  font-weight: normal;
+  padding: 8px;
+  font-style: italic;
+  cursor: pointer;
+  transition: color 0.3s ease, text-decoration 0.2s ease;
+}
+
+.tertiary-btn:hover {
+  color: #4CAF50;
+  text-decoration: underline;
+}
+
+/* Positioning */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+/* Number Indicator */
 .number-indicator {
   position: absolute;
   top: 20px;
@@ -154,59 +169,26 @@ body {
   font-weight: 500;
 }
 
-/* Adjust the section title to account for the number */
-.section-title {
-  padding-right: 40px; /* Make sure the title doesn't overlap with the number */
-}
-
-
-
-/* Add these new styles to the existing CSS */
-
-.form-container {
-  max-width: 400px; /* or whatever width you prefer */
-}
-
-.hidden {
-  display: none;
-}
-
-.form-actions {
+/* Page Indicators */
+.page-indicators {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0;
 }
 
-.next-btn, .create-btn {
+.page-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ccc;
+}
+
+.page-indicator.active {
   background-color: #4CAF50;
-  color: white;
-  padding: 8px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
 }
 
-.prev-btn {
-  color: #666;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  padding: 8px 20px;
-}
-
-.next-btn:hover, .create-btn:hover {
-  background-color: #45a049;
-}
-
-.prev-btn:hover {
-  text-decoration: underline;
-}
-
-/*  */
-/* Add these new styles *//* Updated tooltip styling */
+/* Info Icon and Tooltip */
 .info-icon {
   background: none;
   border: none;
@@ -222,13 +204,12 @@ body {
   color: #4CAF50;
 }
 
-/* Fixed tooltip styling */
 .info-icon::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: 100%;
   left: 50%;
-  transform: translateX(-50%) translateY(-10px); /* Added Y offset */
+  transform: translateX(-50%) translateY(-12px);
   padding: 8px 12px;
   background: #333;
   color: white;
@@ -242,11 +223,10 @@ body {
   z-index: 10;
   width: max-content;
   max-width: 250px;
-  white-space: normal; /* Changed from nowrap to normal */
+  white-space: normal;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* Arrow for tooltip - adjusted position */
 .info-icon::before {
   content: '';
   position: absolute;
@@ -267,36 +247,19 @@ body {
   visibility: visible;
 }
 
-/* Add this for better positioning */
+/* Label with Info */
 .label-with-info {
   position: relative;
   display: flex;
-  align-items: center; /* This ensures vertical alignment */
-  gap: 4px; /* Reduced gap between label and icon */
+  align-items: center;
+  gap: 4px;
   margin-bottom: 4px;
 }
 
 .label-with-info label {
-  display: inline-flex; /* Changed to inline-flex */
-  align-items: center; /* Center align the text vertically */
+  display: inline-flex;
+  align-items: center;
   font-size: 14px;
   color: #666;
-  margin: 0; /* Remove any default margins */
+  margin: 0;
 }
-
-.info-icon {
-  background: none;
-  border: none;
-  padding: 0; /* Removed padding */
-  width: 16px; /* Fixed width */
-  height: 16px; /* Fixed height */
-  cursor: help;
-  color: #666;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-top: 1px; /* Fine-tune vertical alignment */
-}
-
-/* Rest of the tooltip CSS remains the same */
