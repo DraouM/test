@@ -113,3 +113,113 @@ document.addEventListener('DOMContentLoaded', () => {
     form2.classList.remove('hidden');
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const tableContainer = document.querySelector('.party-management');
+  
+  // Check if table is scrollable
+  const checkScroll = () => {
+    const { scrollLeft, scrollWidth, clientWidth } = tableContainer;
+    
+    // Add/remove classes based on scroll position
+    tableContainer.classList.toggle('scroll-start', scrollLeft > 0);
+    tableContainer.classList.toggle('scroll-end', 
+      scrollLeft < (scrollWidth - clientWidth - 1));
+  };
+
+  // Listen for scroll events
+  tableContainer.addEventListener('scroll', checkScroll);
+  
+  // Check on load and resize
+  checkScroll();
+  window.addEventListener('resize', checkScroll);
+
+  // Format balance numbers
+  document.querySelectorAll('.balance').forEach(cell => {
+    const value = parseFloat(cell.textContent.replace(/[^\d.-]/g, ''));
+    cell.classList.toggle('positive', value >= 0);
+    cell.classList.toggle('negative', value < 0);
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Function to calculate and update summary
+  function updateBalanceSummary() {
+    const rows = document.querySelectorAll('.party-table tbody tr');
+    let totalCredit = 0;
+    let totalDebit = 0;
+    let creditParties = 0;
+    let debitParties = 0;
+
+    rows.forEach(row => {
+      const balanceCell = row.querySelector('.balance');
+      const balance = parseFloat(balanceCell.textContent.replace(/[^\d.-]/g, ''));
+      
+      if (balance >= 0) {
+        totalCredit += balance;
+        creditParties++;
+      } else {
+        totalDebit += balance;
+        debitParties++;
+      }
+    });
+
+    // Update summary cards
+    const totalBalance = totalCredit + totalDebit;
+    
+    // Format numbers with commas and 2 decimal places
+    const formatCurrency = (number) => {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(number);
+    };
+
+    // Update total balance
+    document.querySelector('.total-balance .amount').textContent = 
+      formatCurrency(totalBalance);
+
+    // Update credit summary
+    document.querySelector('.credit .amount').textContent = 
+      formatCurrency(totalCredit);
+    document.querySelector('.credit .count').textContent = 
+      `${creditParties} ${creditParties === 1 ? 'party' : 'parties'}`;
+
+    // Update debit summary
+    document.querySelector('.debit .amount').textContent = 
+      formatCurrency(totalDebit);
+    document.querySelector('.debit .count').textContent = 
+      `${debitParties} ${debitParties === 1 ? 'party' : 'parties'}`;
+  }
+
+  // Calculate trend (mock data - replace with actual calculation)
+  function calculateTrend() {
+    const lastMonthBalance = 12000; // Replace with actual previous month data
+    const currentBalance = parseFloat(document.querySelector('.total-balance .amount')
+      .textContent.replace(/[^\d.-]/g, ''));
+    
+    const percentChange = ((currentBalance - lastMonthBalance) / lastMonthBalance) * 100;
+    const trendElement = document.querySelector('.trend');
+    
+    trendElement.className = `trend ${percentChange >= 0 ? 'positive' : 'negative'}`;
+    trendElement.innerHTML = `
+      <i class='bx bx-${percentChange >= 0 ? 'up' : 'down'}-arrow-alt'></i>
+      ${Math.abs(percentChange).toFixed(1)}% from last month
+    `;
+  }
+
+  // Initial update
+  updateBalanceSummary();
+  calculateTrend();
+
+  // Update when table changes (add event listeners for your edit/delete operations)
+  const observer = new MutationObserver(() => {
+    updateBalanceSummary();
+    calculateTrend();
+  });
+
+  observer.observe(document.querySelector('.party-table tbody'), {
+    childList: true,
+    subtree: true
+  });
+});
