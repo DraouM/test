@@ -116,6 +116,101 @@
         </section>
     </div>
 
-    
+    <!-- Parties Table -->
+    <div class="party-management">
+        <div class="scroll-indicator">← Scroll horizontally to see more →</div>
+         <!-- Balance Summary Cards -->
+  <div class="balance-summary">
+    <div class="summary-card total-balance">
+      <div class="summary-icon">
+        <i class='bx bx-wallet'></i>
+      </div>
+      <div class="summary-content">
+        <h4>Total Balance</h4>
+        <p class="amount">$12,345.67</p>
+        <span class="trend positive">
+          <i class='bx bx-up-arrow-alt'></i>
+          2.5% from last month
+        </span>
+      </div>
+    </div>
+
+    <div class="summary-card credit">
+      <div class="summary-icon">
+        <i class='bx bx-trending-up'></i>
+      </div>
+      <div class="summary-content">
+        <h4>Total Credit</h4>
+        <p class="amount positive">$15,678.90</p>
+        <span class="count">12 parties</span>
+      </div>
+    </div>
+
+    <div class="summary-card debit">
+      <div class="summary-icon">
+        <i class='bx bx-trending-down'></i>
+      </div>
+      <div class="summary-content">
+        <h4>Total Debit</h4>
+        <p class="amount negative">-$3,333.23</p>
+        <span class="count">5 parties</span>
+      </div>
+    </div>
+  </div>
+        <table class="party-table">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th class="hide-tablet">Address</th>
+              <th>Phone Number</th>
+              <th>Type</th>
+              <th class="balance">Balance</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mohamed Draou</td>
+              <td class="hide-tablet">123 address lorem</td>
+              <td>06 65 78 94 25</td>
+              <td>Customer</td>
+              <td class="balance positive">$ 1,234.56</td>
+              <td>
+                <div class="table-actions">
+                  <button class="edit-btn">
+                    <i class='bx bx-edit-alt'></i>
+                    Edit
+                  </button>
+                  <button class="delete-btn">
+                    <i class='bx bx-trash'></i>
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <!-- More rows... -->
+
+            <tr>
+                <td>Brahim Draou</td>
+                <td class="hide-tablet">123 address lorem lipsum</td>
+                <td>05 32 25 42 80</td>
+                <td>Supplier</td>
+                <td class="balance negative">$ -122.56</td>
+                <td>
+                  <div class="table-actions">
+                    <button class="edit-btn">
+                      <i class='bx bx-edit-alt'></i>
+                      Edit
+                    </button>
+                    <button class="delete-btn">
+                      <i class='bx bx-trash'></i>
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+    </div>
 </body>
 </html>
