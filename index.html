@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="model.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Document</title>
+    <script src="model.js" defer></script>
     <script src="app.js" defer></script>
 </head>
 <body>
     <h1>Hello Mohamed!</h1>
+    <button id="display-model-btn" class="primary-btn">Display Model</button>
+    <div id="overlay"></div> 
     
-    <div class="container">
+    <div class="container model"id="model" >
         <!-- PERSONAL INFO -->
         <section class="personal-info" id="form-1">
             <div class="number-indicator">1</div>
@@ -120,43 +124,43 @@
     <div class="party-management">
         <div class="scroll-indicator">← Scroll horizontally to see more →</div>
          <!-- Balance Summary Cards -->
-  <div class="balance-summary">
-    <div class="summary-card total-balance">
-      <div class="summary-icon">
-        <i class='bx bx-wallet'></i>
-      </div>
-      <div class="summary-content">
-        <h4>Total Balance</h4>
-        <p class="amount">$12,345.67</p>
-        <span class="trend positive">
-          <i class='bx bx-up-arrow-alt'></i>
-          2.5% from last month
-        </span>
-      </div>
-    </div>
+        <div class="balance-summary">
+          <div class="summary-card total-balance">
+            <div class="summary-icon">
+              <i class='bx bx-wallet'></i>
+            </div>
+            <div class="summary-content">
+              <h4>Total Balance</h4>
+              <p class="amount">$12,345.67</p>
+              <span class="trend positive">
+                <i class='bx bx-up-arrow-alt'></i>
+                2.5% from last month
+              </span>
+            </div>
+          </div>
 
-    <div class="summary-card credit">
-      <div class="summary-icon">
-        <i class='bx bx-trending-up'></i>
-      </div>
-      <div class="summary-content">
-        <h4>Total Credit</h4>
-        <p class="amount positive">$15,678.90</p>
-        <span class="count">12 parties</span>
-      </div>
-    </div>
+          <div class="summary-card credit">
+            <div class="summary-icon">
+              <i class='bx bx-trending-up'></i>
+            </div>
+            <div class="summary-content">
+              <h4>Total Credit</h4>
+              <p class="amount positive">$15,678.90</p>
+              <span class="count">12 parties</span>
+            </div>
+          </div>
 
-    <div class="summary-card debit">
-      <div class="summary-icon">
-        <i class='bx bx-trending-down'></i>
-      </div>
-      <div class="summary-content">
-        <h4>Total Debit</h4>
-        <p class="amount negative">-$3,333.23</p>
-        <span class="count">5 parties</span>
-      </div>
-    </div>
-  </div>
+          <div class="summary-card debit">
+            <div class="summary-icon">
+              <i class='bx bx-trending-down'></i>
+            </div>
+            <div class="summary-content">
+              <h4>Total Debit</h4>
+              <p class="amount negative">-$3,333.23</p>
+              <span class="count">5 parties</span>
+            </div>
+          </div>
+        </div>
         <table class="party-table">
           <thead>
             <tr>

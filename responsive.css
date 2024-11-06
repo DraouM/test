@@ -122,3 +122,32 @@
 .party-management.scroll-end::after {
   opacity: 1;
 }
+
+
+/* Responsive adjustments for the CARDS */ 
+@media screen and (max-width: 1024px) {
+  .balance-summary {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+  }
+
+  .summary-card {
+    padding: 16px;
+  }
+
+  .summary-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .summary-content .amount {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .balance-summary {
+    grid-template-columns: 1fr;
+  }
+}

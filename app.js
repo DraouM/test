@@ -65,9 +65,18 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Form data:', formData);
         // You can add your API call or other submission logic here
         alert('Form submitted successfully!');
+        closeModel();
       }
     });
   }
+  // Close Model
+  function closeModel () {
+    const overlay = document.getElementById('overlay');
+    const model = document.getElementById('model');
+    overlay.classList.remove('active');
+    model.classList.remove('active');
+  }
+  
 
   // Form validation
   function validateForms(data) {
