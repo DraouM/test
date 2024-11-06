@@ -51,3 +51,74 @@
     }
   
   }
+
+  /* Responsive table */
+
+/* Responsive styles */
+@media screen and (max-width: 1024px) {
+  /* Tablet and smaller */
+  .party-table {
+    /* Remove fixed min-width for better responsiveness */
+    min-width: unset;
+  }
+  
+  .party-table th,
+  .party-table td {
+    padding: 8px;
+  }
+
+  /* Hide less important columns on tablet */
+  .party-table .hide-tablet {
+    display: none;
+  }
+  
+  /* Make action buttons more compact */
+  .edit-btn,
+  .delete-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+
+/* Add a horizontal scroll indicator */
+.scroll-indicator {
+  display: none;
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .scroll-indicator {
+    display: block;
+  }
+}
+
+/* Optional: Add shadows to indicate scrollable content */
+.party-management::before,
+.party-management::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.party-management::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(241, 241, 241, 0.9), transparent);
+}
+
+.party-management::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(241, 241, 241, 0.9), transparent);
+}
+
+.party-management.scroll-start::before,
+.party-management.scroll-end::after {
+  opacity: 1;
+}
