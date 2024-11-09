@@ -18,14 +18,14 @@
     <script src="second-page.js" defer></script>
   </head>
   <body>
-    <button id="open-modal-button">Open Modal</button>
+    <button id="open-model-btn">Open Model</button>
 
-    <div id="modal" class="modal">
-      <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <h2 class="modal-title">Modal Title</h2>
-        <div class="modal-body">
-          <!-- Modal content goes here -->
+    <div id="model" class="model">
+      <div class="model-content">
+        <span class="close-model-btn">&times;</span>
+        <h2 class="model-title">Model Title</h2>
+        <div class="model-body">
+          <!-- model content goes here -->
           <form action="" method="post" id="party-form">
             <!-- PERSONAL INFO -->
             <section class="personal-info" id="form-1">
@@ -41,6 +41,7 @@
                   value="Mohamed"
                   required
                 />
+                <span class="error-message" id="full-name-error">hello</span>
               </div>
 
               <div class="form-group">
@@ -54,7 +55,6 @@
                 <span
                   id="address-error"
                   class="error-message"
-                  style="display: none; color: red"
                 >
                   Please enter a valid address.
                 </span>
@@ -68,6 +68,7 @@
                   name="phone-number"
                   value="06 65 78 94 25"
                 />
+                <span class="error-message" id="phone-number-error">hello</span>
               </div>
 
               <div class="form-group">
@@ -79,6 +80,7 @@
                     <option value="both">Both</option>
                   </select>
                 </div>
+                <span class="error-message" id="type-error">hello</span>
               </div>
 
               <button class="clear-btn tertiary-btn">Clear</button>
@@ -112,6 +114,7 @@
                   name="nrc"
                   value="123-456-789-459-321"
                 />
+                <span class="error-message" id="nrc-error">hello</span>
               </div>
 
               <div class="form-group">
@@ -130,6 +133,7 @@
                   name="nif"
                   value="654 256 879 254 368"
                 />
+                <span class="error-message" id="nif-error">hello</span>
               </div>
 
               <div class="form-group">
@@ -143,6 +147,8 @@
                   </button>
                 </div>
                 <input type="text" id="ia" name="ia" value="06 65 78 94 25" />
+                <span class="error-message" id="ia-error">hello</span>
+
               </div>
 
               <div class="form-group">
@@ -156,6 +162,8 @@
                   </button>
                 </div>
                 <input type="text" id="nis" name="nis" value="Customer" />
+                <span class="error-message" id="nis-error">hello</span>
+
               </div>
 
               <button type="button" class="clear-btn tertiary-btn">
@@ -178,9 +186,9 @@
             </section>
           </form>
         </div>
-        <!-- <div class="modal-footer">
-          <button class="modal-close">Close</button>
-          <button class="modal-action">Confirm</button>
+        <!-- <div class="model-footer">
+          <button class="model-close">Close</button>
+          <button class="model-action">Confirm</button>
         </div> -->
       </div>
     </div>
