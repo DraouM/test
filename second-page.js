@@ -73,7 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Page switching logic (mobile only)
   if (nextBtn && prevBtn) {
     nextBtn.addEventListener("click", () => {
-      if (isMobileView()) {
+      if (isMobileView() && validatePersonalInfo()) {
+        clearAllErrors(); // if exists
         form1.classList.add("hidden");
         form2.classList.remove("hidden");
       }
@@ -90,43 +91,75 @@ document.addEventListener("DOMContentLoaded", function () {
   modalForm.addEventListener("submit", (e) => {
     e.preventDefault(); // Prevent form from submitting
 
-    if (validateForm()) {
-      // Form is valid, proceed with submission
+    const formValidationResult = validateForm();
+    if (formValidationResult.isValid) {
+      const formData = formValidationResult.formData;
+      // Proceed with processing formData
+      console.log("Form Data Collected:", formData);
+
+      // Process the form data
+      // You can now send this data to the server, close the modal, or display a success message
       submitForm()
+    } else {
+      // Handle invalid form, as errors are displayed
     }
 
   })
 
 });
 
+function submitForm() {
+  console.log("Form submitted successefully");
+}
 function validateForm(){
+  const isPersonalInfoValid = validatePersonalInfo();
+  const isCommerceDetailsValid = validateCommerceDetails();
+
+  if (isPersonalInfoValid && isCommerceDetailsValid) {
+    const formData = {...isPersonalInfoValid, ...isCommerceDetailsValid};
+    return { isValid: true, formData }; // Form is valid, return data
+  } else {
+    showSummaryError("Please fix the highlighted errors.");
+    return { isValid: false }; // Form is invalid, no data to return
+  }
+}
+
+function validatePersonalInfo() {
+  // Personal Info Form inputs
   const name = document.getElementById('full-name').value.trim();
   const address = document.getElementById('address').value.trim();
   const phone = document.getElementById('phone').value.trim();
   const type = document.getElementById('type').value.trim();
 
+  // Run all individual validators
+  const isNameValid = validateName(name);
+  const isAddressValid = validateAddress(address);
+  const isPhoneValid = validatePhone(phone);
+  const isTypeValid = validateType(type);
+
+  if (isNameValid && isAddressValid && isPhoneValid && isTypeValid) {
+    return {name, address, phone, type};// Form is valid
+  } else {
+    showSummaryError("Please fix the highlighted errors.");
+    return false; // Prevent form submission
+  }
+}
+
+function validateCommerceDetails() {
+  // Commerce Details Form inputs
   const nrc = document.getElementById('nrc').value.trim();
   const nif = document.getElementById('nif').value.trim();
   const ia = document.getElementById('ia').value.trim();
   const nis = document.getElementById('nis').value.trim();
 
   // Run all individual validators
-  // Personal Info
-  const isNameValid = validateName(name);
-  const isAddressValid = validateAddress(address);
-  const isPhoneValid = validatePhone(phone);
-  const isTypeValid = validateType(type);
-  // Commerce Details
   const isNRC_valid = validateNRC(nrc);
   const isNIF_valid = validateNIF(nif);
   const isIA_valid = validateIA(ia);
   const isNIS_valid = validateNIS(nis);
 
-
-  if (isNameValid && isAddressValid && isPhoneValid && isTypeValid
-    && isNRC_valid && isNIF_valid && isIA_valid && isNIS_valid
-  ) {
-    return true;// Form is valid
+  if (isNRC_valid && isNIF_valid && isIA_valid && isNIS_valid) {
+    return {nrc, nif, ia, nis};// Form is valid
   } else {
     showSummaryError("Please fix the highlighted errors.");
     return false; // Prevent form submission
