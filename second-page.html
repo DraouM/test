@@ -52,23 +52,21 @@
                   name="address"
                   value="123 address lorem"
                 />
-                <span
-                  id="address-error"
-                  class="error-message"
-                >
+                <span id="address-error" class="error-message">
                   Please enter a valid address.
                 </span>
               </div>
-
+              
               <div class="form-group">
-                <label for="phone-number">Phone Number</label>
+                <label for="phone">Phone Number</label>
                 <input
                   type="tel"
-                  id="phone-number"
-                  name="phone-number"
+                  id="phone"
+                  name="phone"
+                  maxlength="10" 
                   value="06 65 78 94 25"
                 />
-                <span class="error-message" id="phone-number-error">hello</span>
+                <span class="error-message" id="phone-error"></span>
               </div>
 
               <div class="form-group">
@@ -80,10 +78,16 @@
                     <option value="both">Both</option>
                   </select>
                 </div>
-                <span class="error-message" id="type-error">hello</span>
+                <span class="error-message" id="type-error"></span>
               </div>
 
-              <button type="button" id="clear-btn-1" class="clear-btn tertiary-btn">Clear</button>
+              <button
+                type="button"
+                id="clear-btn-1"
+                class="clear-btn tertiary-btn"
+              >
+                Clear
+              </button>
 
               <div class="page-indicators">
                 <span class="page-indicator active"></span>
@@ -112,9 +116,9 @@
                   type="text"
                   id="nrc"
                   name="nrc"
-                  value="123-456-789-459-321"
+                  placeholder="format: XX/XX-XXXXXXXAXX"
                 />
-                <span class="error-message" id="nrc-error">hello</span>
+                <span class="error-message" id="nrc-error"></span>
               </div>
 
               <div class="form-group">
@@ -133,7 +137,7 @@
                   name="nif"
                   value="654 256 879 254 368"
                 />
-                <span class="error-message" id="nif-error">hello</span>
+                <span class="error-message" id="nif-error"></span>
               </div>
 
               <div class="form-group">
@@ -147,8 +151,7 @@
                   </button>
                 </div>
                 <input type="text" id="ia" name="ia" value="06 65 78 94 25" />
-                <span class="error-message" id="ia-error">hello</span>
-
+                <span class="error-message" id="ia-error"></span>
               </div>
 
               <div class="form-group">
@@ -162,11 +165,14 @@
                   </button>
                 </div>
                 <input type="text" id="nis" name="nis" value="Customer" />
-                <span class="error-message" id="nis-error">hello</span>
-
+                <span class="error-message" id="nis-error"></span>
               </div>
 
-              <button type="button"  id="clear-btn-2"  class="clear-btn tertiary-btn">
+              <button
+                type="button"
+                id="clear-btn-2"
+                class="clear-btn tertiary-btn"
+              >
                 Clear
               </button>
 
@@ -186,6 +192,8 @@
             </section>
           </form>
         </div>
+
+        <div class="error-message" id="summary-error"></div>
         <!-- <div class="modal-footer">
           <button class="modal-close">Close</button>
           <button class="modal-action">Confirm</button>

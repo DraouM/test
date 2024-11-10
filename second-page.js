@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     form1.classList.remove("hidden");
     form2.classList.remove("hidden");
   }
+
   //Handle resize events to manage visibility
   window.addEventListener("resize", () => {
     if (!isMobileView()) {
@@ -86,9 +87,161 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  
+  modalForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // Prevent form from submitting
+
+    if (validateForm()) {
+      // Form is valid, proceed with submission
+      submitForm()
+    }
+
+  })
 
 });
+
+function validateForm(){
+  const name = document.getElementById('full-name').value.trim();
+  const address = document.getElementById('address').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const type = document.getElementById('type').value.trim();
+
+  const nrc = document.getElementById('nrc').value.trim();
+  const nif = document.getElementById('nif').value.trim();
+  const ia = document.getElementById('ia').value.trim();
+  const nis = document.getElementById('nis').value.trim();
+
+  // Run all individual validators
+  // Personal Info
+  const isNameValid = validateName(name);
+  const isAddressValid = validateAddress(address);
+  const isPhoneValid = validatePhone(phone);
+  const isTypeValid = validateType(type);
+  // Commerce Details
+  const isNRC_valid = validateNRC(nrc);
+  const isNIF_valid = validateNIF(nif);
+  const isIA_valid = validateIA(ia);
+  const isNIS_valid = validateNIS(nis);
+
+
+  if (isNameValid && isAddressValid && isPhoneValid && isTypeValid
+    && isNRC_valid && isNIF_valid && isIA_valid && isNIS_valid
+  ) {
+    return true;// Form is valid
+  } else {
+    showSummaryError("Please fix the highlighted errors.");
+    return false; // Prevent form submission
+  }
+}
+
+function validateName(name) {
+  if (name.trim() === "") {
+    showError("full-name", "Party Full Name is required")
+    return false;
+  }
+  if (name.length < 3) {
+    showError("full-name", "Full Name must be at least 3 characters.");
+    return false;
+  }
+  removeError("full-name");
+  return true;
+}
+
+function validateAddress(address) {
+  if (address.trim() !== "" && address.length <= 4) {
+    showError("address", "Address is to short must be >= 4 ")
+    return false;
+  }
+  removeError("address");
+  return true;
+}
+
+function validatePhone(phone) {
+  const phoneRegex = /^[0-9]{10}$/; // Adjust pattern as needed
+  if (!phoneRegex.test(phone)) {
+    showError("phone", `Phone number must be 10 digits. Yours is ${phone.length} `);
+    return false;
+  }
+  removeError("phone");
+  return true;
+}
+
+function validateType(type) {
+  const validTypes = ["customer", "supplier", "both"];
+  if (!validTypes.includes(type)){
+    showError("type", "Invalid type. Must be 'customer', 'supplier', or 'both'.")
+    return true;
+  }
+  removeError("type");
+  return true;
+}
+
+function validateNRC(nrc) {
+  const nrcPattern = /^[0-9]{2}\/[0-9]{2}-[0-9]{7}[A-Z][0-9]{2}$/;
+  if (nrc && !nrcPattern.test(nrc)) {
+    showError("nrc", "Invalid NRC format. Expected format: XX/XX-XXXXXXXAXX");
+    return false;
+  }
+  removeError("nrc");
+  return true;
+}
+
+function validateNIF(nif) {
+  const nifPattern = /^[0-9]{15}$/;
+  if (nif && !nifPattern.test(nif)) {
+    showError("nif", "Invalid NIF format. Expected format: 15 digits.");
+    return false;
+  }
+  removeError("nif");
+  return true;
+}
+
+function validateIA(ia) {
+  const iaPattern = /^[0-9]{11}$/;
+  if (ia && !iaPattern.test(ia)) {
+    showError("ia", "Invalid IA format. Expected format: 11 digits.");
+    return false;
+  }
+  removeError("ia");
+  return true;
+}
+
+function validateNIS(nis) {
+  const nisPattern = /^[0-9]{12}$/;
+  if (nis && !nisPattern.test(nis)) {
+    showError("nis", "Invalid NIS format. Expected format: 12 digits.");
+    return false;
+  }
+  removeError("nis");
+  return true;
+}
+
+
+/** Error Display/Removal Functions */
+function showError(fieldId, message) {
+  const errorDiv = document.getElementById(`${fieldId}-error`);
+  errorDiv.innerText = message
+  errorDiv.style.display = 'block'
+}
+
+function removeError(fieldId) {
+  const errorDiv = document.getElementById(`${fieldId}-error`);
+  errorDiv.innerText = ""
+  errorDiv.style.display = 'none'
+}
+
+function showSummaryError(message) {
+  const summaryErrorDiv = document.getElementById("summary-error");
+  summaryErrorDiv.innerText = message;
+  summaryErrorDiv.style.display = "block";
+}
+
+function clearAllErrors() {
+  document.querySelectorAll(".error-message").forEach((errorDiv) => {
+    errorDiv.innerText = "";
+    errorDiv.style.display = "none";
+  });
+}
+
 
 // document.addEventListener("DOMContentLoaded", function () {
 //   const modal = document.getElementById("modal");
@@ -145,7 +298,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //   }
 
 //   function validatePhone() {
-//     const phone = document.getElementById("phone-number");
+//     const phone = document.getElementById("phone");
 //     const phoneRegex = /^\d{3}-\d{3}-\d{4}$/; // Example: 123-456-7890
 //     if (!phoneRegex.test(phone.value.trim())) {
 //       showError(phone, "Invalid phone format. Example: 123-456-7890");
@@ -242,7 +395,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //         personalInfo: {
 //           fullName: document.getElementById("full-name").value,
 //           address: document.getElementById("address").value,
-//           phoneNumber: document.getElementById("phone-number").value,
+//           phoneNumber: document.getElementById("phone").value,
 //           type: document.getElementById("type").value,
 //         },
 //         commerceDetails: {
