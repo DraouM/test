@@ -88,6 +88,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Load table with data
+  loadAndDisplayData();
+
+  // setting up form listeners
   modalForm.addEventListener("submit", (e) => {
     e.preventDefault(); // Prevent form from submitting
 
@@ -98,12 +102,15 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("Form Data Collected:", formData);
 
       // You can now send this data to the server, close the modal, or display a success message
-      submitForm(formData);
+      storeData(formData);
 
       // Show a success message, clear the form and close the modal
       showSuccessMessage();
       resetForm();
       closeModal();
+
+      // Reload table with the new data
+      loadAndDisplayData();
     } else {
       // Handle invalid form, as errors are displayed
       showSummaryError("Please fix the highlighted errors.");
@@ -111,14 +118,50 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-function submitForm(formData) {
+// Function to fetch data from local storage and render in table
+function loadAndDisplayData() {
+  const data = fetchData(); // Assuming fetchData returns an array of data objects
+  console.log("DATA ", data);
+  renderPartiesTable(data);
+}
+
+function fetchData() {
+  return JSON.parse(localStorage.getItem("PartiesData")) || [];
+}
+
+// Fetch and load data from local storage
+function renderPartiesTable(parties) {
+  const partiesTable = document.getElementById("parties-table");
+  const tbody = partiesTable.querySelector("tbody");
+
+  // Clear existing rows
+  tbody.innerHTML = "";
+  // Render each party as a row in the table
+  parties.forEach((party, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${party.name}</td>
+      <td>${party.address}</td>
+      <td>${party.phone}</td>
+      <td>${party.type}</td>
+      <td>
+        <button class="delete-btn">Delete</button>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
+function storeData(newData) {
   console.log("Form submitted successefully");
+  // Step 1: Retrieve existing data from local storage
+  const existingData = JSON.parse(localStorage.getItem("PartiesData")) || [];
 
-  // Convert formData to a JSON string
-  const formDataString = JSON.stringify(formData);
+  // Step 2: Add the new data to the existing array
+  existingData.push(newData);
 
-  // Store the JSON string in local storage
-  localStorage.setItem("PartiesData", formDataString);
+  // Step 3: Save the updated array back to local storage
+  localStorage.setItem("PartiesData", JSON.stringify(existingData));
 }
 
 function validateForm() {
