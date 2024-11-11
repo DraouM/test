@@ -103,20 +103,16 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       // Handle invalid form, as errors are displayed
     }
-
-  })
-
+  });
 });
 
-function submitForm() {
-  console.log("Form submitted successefully");
-}
-function validateForm(){
+
+function validateForm() {
   const isPersonalInfoValid = validatePersonalInfo();
   const isCommerceDetailsValid = validateCommerceDetails();
 
   if (isPersonalInfoValid && isCommerceDetailsValid) {
-    const formData = {...isPersonalInfoValid, ...isCommerceDetailsValid};
+    const formData = { ...isPersonalInfoValid, ...isCommerceDetailsValid };
     return { isValid: true, formData }; // Form is valid, return data
   } else {
     showSummaryError("Please fix the highlighted errors.");
@@ -126,10 +122,10 @@ function validateForm(){
 
 function validatePersonalInfo() {
   // Personal Info Form inputs
-  const name = document.getElementById('full-name').value.trim();
-  const address = document.getElementById('address').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const type = document.getElementById('type').value.trim();
+  const name = document.getElementById("full-name").value.trim();
+  const address = document.getElementById("address").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const type = document.getElementById("type").value.trim();
 
   // Run all individual validators
   const isNameValid = validateName(name);
@@ -138,7 +134,7 @@ function validatePersonalInfo() {
   const isTypeValid = validateType(type);
 
   if (isNameValid && isAddressValid && isPhoneValid && isTypeValid) {
-    return {name, address, phone, type};// Form is valid
+    return { name, address, phone, type }; // Form is valid
   } else {
     showSummaryError("Please fix the highlighted errors.");
     return false; // Prevent form submission
@@ -147,10 +143,10 @@ function validatePersonalInfo() {
 
 function validateCommerceDetails() {
   // Commerce Details Form inputs
-  const nrc = document.getElementById('nrc').value.trim();
-  const nif = document.getElementById('nif').value.trim();
-  const ia = document.getElementById('ia').value.trim();
-  const nis = document.getElementById('nis').value.trim();
+  const nrc = document.getElementById("nrc").value.trim();
+  const nif = document.getElementById("nif").value.trim();
+  const ia = document.getElementById("ia").value.trim();
+  const nis = document.getElementById("nis").value.trim();
 
   // Run all individual validators
   const isNRC_valid = validateNRC(nrc);
@@ -159,7 +155,7 @@ function validateCommerceDetails() {
   const isNIS_valid = validateNIS(nis);
 
   if (isNRC_valid && isNIF_valid && isIA_valid && isNIS_valid) {
-    return {nrc, nif, ia, nis};// Form is valid
+    return { nrc, nif, ia, nis }; // Form is valid
   } else {
     showSummaryError("Please fix the highlighted errors.");
     return false; // Prevent form submission
@@ -168,7 +164,7 @@ function validateCommerceDetails() {
 
 function validateName(name) {
   if (name.trim() === "") {
-    showError("full-name", "Party Full Name is required")
+    showError("full-name", "Party Full Name is required");
     return false;
   }
   if (name.length < 3) {
@@ -181,7 +177,7 @@ function validateName(name) {
 
 function validateAddress(address) {
   if (address.trim() !== "" && address.length <= 4) {
-    showError("address", "Address is to short must be >= 4 ")
+    showError("address", "Address is to short must be >= 4 ");
     return false;
   }
   removeError("address");
@@ -191,7 +187,10 @@ function validateAddress(address) {
 function validatePhone(phone) {
   const phoneRegex = /^[0-9]{10}$/; // Adjust pattern as needed
   if (!phoneRegex.test(phone)) {
-    showError("phone", `Phone number must be 10 digits. Yours is ${phone.length} `);
+    showError(
+      "phone",
+      `Phone number must be 10 digits. Yours is ${phone.length} `
+    );
     return false;
   }
   removeError("phone");
@@ -200,8 +199,11 @@ function validatePhone(phone) {
 
 function validateType(type) {
   const validTypes = ["customer", "supplier", "both"];
-  if (!validTypes.includes(type)){
-    showError("type", "Invalid type. Must be 'customer', 'supplier', or 'both'.")
+  if (!validTypes.includes(type)) {
+    showError(
+      "type",
+      "Invalid type. Must be 'customer', 'supplier', or 'both'."
+    );
     return true;
   }
   removeError("type");
@@ -248,18 +250,17 @@ function validateNIS(nis) {
   return true;
 }
 
-
 /** Error Display/Removal Functions */
 function showError(fieldId, message) {
   const errorDiv = document.getElementById(`${fieldId}-error`);
-  errorDiv.innerText = message
-  errorDiv.style.display = 'block'
+  errorDiv.innerText = message;
+  errorDiv.style.display = "block";
 }
 
 function removeError(fieldId) {
   const errorDiv = document.getElementById(`${fieldId}-error`);
-  errorDiv.innerText = ""
-  errorDiv.style.display = 'none'
+  errorDiv.innerText = "";
+  errorDiv.style.display = "none";
 }
 
 function showSummaryError(message) {
@@ -274,7 +275,6 @@ function clearAllErrors() {
     errorDiv.style.display = "none";
   });
 }
-
 
 // document.addEventListener("DOMContentLoaded", function () {
 //   const modal = document.getElementById("modal");
