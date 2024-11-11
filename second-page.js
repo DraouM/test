@@ -97,15 +97,29 @@ document.addEventListener("DOMContentLoaded", function () {
       // Proceed with processing formData
       console.log("Form Data Collected:", formData);
 
-      // Process the form data
       // You can now send this data to the server, close the modal, or display a success message
-      submitForm()
+      submitForm(formData);
+
+      // Show a success message, clear the form and close the modal
+      showSuccessMessage();
+      resetForm();
+      closeModal();
     } else {
       // Handle invalid form, as errors are displayed
+      showSummaryError("Please fix the highlighted errors.");
     }
   });
 });
 
+function submitForm(formData) {
+  console.log("Form submitted successefully");
+
+  // Convert formData to a JSON string
+  const formDataString = JSON.stringify(formData);
+
+  // Store the JSON string in local storage
+  localStorage.setItem("PartiesData", formDataString);
+}
 
 function validateForm() {
   const isPersonalInfoValid = validatePersonalInfo();
@@ -274,6 +288,23 @@ function clearAllErrors() {
     errorDiv.innerText = "";
     errorDiv.style.display = "none";
   });
+}
+
+function resetForm() {
+  document
+    .querySelectorAll("input, select")
+    .forEach((input) => (input.value = ""));
+  clearAllErrors(); // Clear all error messages
+}
+
+function showSuccessMessage() {
+  const successMessage = document.getElementById("successMessage");
+  successMessage.style.display = "block";
+
+  // Hide success message after 3 seconds
+  setTimeout(() => {
+    successMessage.style.display = "none";
+  }, 3000);
 }
 
 // document.addEventListener("DOMContentLoaded", function () {
