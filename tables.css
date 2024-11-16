@@ -1,0 +1,107 @@
+/* Container for the table */
+.table-container {
+  position: relative;
+  max-height: 75dvh;
+  /* Adjust this value based on your needs */
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+/* Style for the table */
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+/* Fixed header styles */
+.table-container thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #f9fafb;
+}
+
+/* Header cell styles */
+.table-container th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Table body styles */
+.table-container tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Table cell styles */
+.table-container td {
+  padding: 0.75rem 1rem;
+  white-space: nowrap;
+}
+
+/* Hover effect on rows */
+.table-container tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Scrollbar styling for webkit browsers */
+.table-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* For Firefox */
+.table-container {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+/* Horizontal Scrolling */
+/* Add these styles to enable horizontal scrolling */
+.table-container {
+  overflow-x: auto;
+  /* Enables horizontal scrolling */
+}
+
+.table-container table {
+  min-width: 100%;
+  /* Ensures table takes at least full width */
+}
+
+/* Optional: Set a minimum width for columns */
+.table-container td,
+.table-container th {
+  min-width: 120px;
+  /* Adjust based on your content */
+}
+
+/* Optional: Fix first column position */
+.table-container th:first-child,
+.table-container td:first-child {
+  position: sticky;
+  left: 0;
+  background-color: white;
+  /* Match your table background */
+  z-index: 2;
+}
+
+/* Ensure sticky header and first column work together */
+.table-container th:first-child {
+  z-index: 3;
+}
