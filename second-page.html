@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="second-page.css" />
+    <link rel="stylesheet" href="tables.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,21 +22,22 @@
     <button id="open-modal-btn" class="primary-btn">Open modal</button>
 
     <!-- Parties Table -->
-    <table id="parties-table">
-      <thead>
-        <tr>
-          <th>Full Name</th>
-          <th>Address</th>
-          <th>Phone Number</th>
-          <th>Type</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Rows will be dynamically inserted here -->
-      </tbody>
-    </table>
-
+    <div class="table-container">
+      <table id="parties-table">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Type</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows will be dynamically inserted here -->
+        </tbody>
+      </table>
+    </div>
     <div id="modal" class="modal">
       <div class="modal-content">
         <span class="close-modal-btn">&times;</span>
@@ -72,14 +74,14 @@
                   Please enter a valid address.
                 </span>
               </div>
-              
+
               <div class="form-group">
                 <label for="phone">Phone Number</label>
                 <input
                   type="tel"
                   id="phone"
                   name="phone"
-                  maxlength="10" 
+                  maxlength="10"
                   value="06 65 78 94 25"
                 />
                 <span class="error-message" id="phone-error"></span>
@@ -151,7 +153,6 @@
                   type="text"
                   id="nif"
                   name="nif"
-                  value="654 256 879 254 368"
                 />
                 <span class="error-message" id="nif-error"></span>
               </div>
@@ -166,7 +167,7 @@
                     <i class="bx bx-info-circle"></i>
                   </button>
                 </div>
-                <input type="text" id="ia" name="ia" value="06 65 78 94 25" />
+                <input type="text" id="ia" name="ia"  />
                 <span class="error-message" id="ia-error"></span>
               </div>
 
@@ -180,7 +181,7 @@
                     <i class="bx bx-info-circle"></i>
                   </button>
                 </div>
-                <input type="text" id="nis" name="nis" value="Customer" />
+                <input type="text" id="nis" name="nis" />
                 <span class="error-message" id="nis-error"></span>
               </div>
 
@@ -221,6 +222,5 @@
     <div id="successMessage" class="success-message">
       Form submitted successfully!
     </div>
-    
   </body>
 </html>

@@ -18,6 +18,21 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   function closeModal() {
     modal.style.display = "none";
+
+    // Reset Model Form Fields
+    resetForm();
+    
+    // Reset modal title
+    const modalTitle = modal.querySelector('.modal-title');
+    modalTitle.textContent = "Create New Party";
+    
+    // Reset submit button
+    const submitBtn = modal.querySelector('button[type="submit"]');
+    submitBtn.textContent = "Submit";
+    submitBtn.classList.remove('bg-green-500', 'hover:bg-green-600');  // Remove edit button classes
+    submitBtn.classList.add('bg-blue-500', 'hover:bg-blue-600');       // Add create button classes
+    
+    delete modal.dataset.editIndex;
   }
 
   // Event listeners for openning the modal
@@ -100,13 +115,26 @@ document.addEventListener("DOMContentLoaded", function () {
       const formData = formValidationResult.formData;
       // Proceed with processing formData
       console.log("Form Data Collected:", formData);
+      const editIndex = modal.dataset.editIndex;
+    
+      if (editIndex !== undefined) {
+        // Update existing Party
+        const parties = fetchData();
+        parties[editIndex] = formData;
+        localStorage.setItem("PartiesData", JSON.stringify(parties));
+        delete modal.dataset.editIndex;
+        showSuccessMessage('updated');
 
-      // You can now send this data to the server, close the modal, or display a success message
-      storeData(formData);
+      } else {
+        // Add new Party 
+        storeData(formData);
+        // Show a success message, 
+        showSuccessMessage('created');
+      }
+      // // You can now send this data to the server, close the modal, or display a success message
+      // storeData(formData);
 
-      // Show a success message, clear the form and close the modal
-      showSuccessMessage();
-      resetForm();
+      // Clear the form and close the modal
       closeModal();
 
       // Reload table with the new data
@@ -145,11 +173,65 @@ function renderPartiesTable(parties) {
       <td>${party.phone}</td>
       <td>${party.type}</td>
       <td>
+        <button class="edit-btn">Edit</button>
         <button class="delete-btn">Delete</button>
       </td>
     `;
     tbody.appendChild(row);
   });
+
+  tbody.removeEventListener("click", handleDeleteClick);
+  tbody.addEventListener("click", handleDeleteClick);
+
+  tbody.removeEventListener("click", handleEditClick);
+  tbody.addEventListener("click", handleEditClick);
+}
+
+function handleDeleteClick(event) {
+  if (event.target.classList.contains("delete-btn")) {
+    const row = event.target.closest("tr");
+    const index = row.rowIndex
+    const parties = fetchData();
+    if(confirm("Are you sure you want to delete this record?")){
+      const deletedRowData = parties.splice(index - 1, 1);
+      console.log(deletedRowData);
+      localStorage.setItem("PartiesData", JSON.stringify(parties));
+      row.remove() // or renderPartiesTable(parties);
+    }
+  }
+}
+
+function handleEditClick(event) {
+  if (event.target.classList.contains("edit-btn")) {
+    const row = event.target.closest("tr");
+    const index = row.rowIndex;
+    const parties = fetchData();
+    const partyToEdit = parties[index - 1];
+    
+    // Open modal
+    const modal = document.getElementById("modal");
+    modal.style.display = "flex";
+
+    // Change modal title
+    const modalTitle = modal.querySelector('.modal-title');  // Add class to your title
+    modalTitle.textContent = "Edit Party";
+    
+    // Populate form fields
+    document.getElementById("full-name").value = partyToEdit.name;
+    document.getElementById("address").value = partyToEdit.address;
+    document.getElementById("phone").value = partyToEdit.phone;
+    document.getElementById("type").value = partyToEdit.type;
+
+    // Change submit button text and style
+    const submitBtn = modal.querySelector('button[type="submit"]');
+    submitBtn.textContent = "Modify";
+    submitBtn.classList.remove('bg-blue-500', 'hover:bg-blue-600');  // Remove create button classes
+    submitBtn.classList.add('bg-green-500', 'hover:bg-green-600');   // Add edit button classes
+    
+    
+    // Store index for later use when saving
+    modal.dataset.editIndex = index - 1;
+  }
 }
 
 function storeData(newData) {
@@ -340,8 +422,12 @@ function resetForm() {
   clearAllErrors(); // Clear all error messages
 }
 
-function showSuccessMessage() {
+function showSuccessMessage(action = "created") {
   const successMessage = document.getElementById("successMessage");
+  const message = action === 'created' 
+    ? "Party created successfully!" 
+    : "Party updated successfully!";
+  successMessage.innerText = message;
   successMessage.style.display = "block";
 
   // Hide success message after 3 seconds
