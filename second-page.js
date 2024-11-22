@@ -1,7 +1,28 @@
+// Create a modal service/manager
+const modalManager = {
+  modal: null,
+  
+  init() {
+    this.modal = document.getElementById("modal");
+  },
+  
+  open() {
+    this.modal.style.display = "flex";
+  },
+  
+  close() {
+    this.modal.style.display = "none";
+  },
+  
+  setType(type) {
+    // Your modal type logic
+  }
+};
+
 // modal functionality
 document.addEventListener("DOMContentLoaded", function () {
   // Model
-  const modal = document.getElementById("modal");
+  modalManager.init();
   const closeModalBtn = document.querySelector(".close-modal-btn");
   const openModalBtn = document.getElementById("open-modal-btn");
   // Form
