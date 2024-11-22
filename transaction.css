@@ -1,0 +1,324 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+
+    line-height: 1.6;
+    padding: 20px;
+    background-color: #f6f6f6;
+}
+/* Model */
+.modal-content{
+    max-width: 500px;
+}
+
+/* Table Styles */
+.table_container {
+    width: 95%;
+    max-height: calc(89% - 1.6rem);
+    background-color: #fffb;
+    margin: .8rem auto;
+    border-radius: .6rem;
+    overflow: auto;
+    overflow: overlay;
+}
+
+
+.table_container::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.table_container::-webkit-scrollbar-thumb {
+    border-radius: .5rem;
+    background-color: #0004;
+    visibility: hidden;
+}
+
+.table_container:hover::-webkit-scrollbar-thumb {
+    visibility: visible;
+}
+
+table {
+    width: 100%;
+}
+
+table,
+th,
+td {
+    border-collapse: collapse;
+    padding: .5rem;
+    text-align: right;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: #d5d1defe;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #0000000b;
+}
+
+tbody tr {
+    --delay: .1s;
+    transition: .5s ease-in-out var(--delay), background-color 0s;
+}
+
+tbody tr.hide {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+tbody tr:hover {
+    background-color: #fff6 !important;
+}
+
+tbody tr td,
+tbody tr td p {
+    transition: .2s ease-in-out;
+}
+
+tbody tr.hide td,
+tbody tr.hide td p {
+    padding: 0;
+    font: 0 / 0 sans-serif;
+    transition: .2s ease-in-out .5s;
+}
+
+thead th span.icon-arrow {
+    display: inline-block;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    border: 1.4px solid transparent;
+
+    text-align: center;
+    font-size: 1rem;
+
+    margin-left: .5rem;
+    transition: .2s ease-in-out;
+}
+
+thead th:hover span.icon-arrow {
+    border: 1.4px solid #6c00bd;
+}
+
+thead th:hover {
+    color: #6c00bd;
+}
+
+thead th.active span.icon-arrow {
+    background-color: #6c00bd;
+    color: #fff;
+}
+
+thead th.asc span.icon-arrow {
+    transform: rotate(180deg);
+}
+
+thead th.active,
+tbody td.active {
+    color: #6c00bd;
+}
+
+
+/* BUTTONS */
+.primary-btn {
+    background-color: #04AA6D;
+    /* Green */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.primary-btn:hover {
+    background-color: #1b8a5f;
+}
+
+.del-btn {
+    background-color: #f44336;
+    /* Red */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.del-btn:hover {
+    background-color: #da190b;
+}
+
+/* first row */
+.number-circle {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #adbdc7;
+    text-align: center;
+    line-height: 30px;
+    font-size: 16px;
+}
+
+/* Quantity Column Styling */
+.quantity {
+    display: flex;
+    align-items: center;
+    /* Center-align both parts vertically */
+    justify-content: flex-end;
+    /* Space between main and sub-quantity */
+    gap: 8px;
+}
+
+/* Main Quantity */
+.main-quantity {
+    font-size: 16px;
+    font-weight: normal;
+    color: #333;
+}
+
+/* Sub Quantity */
+.sub-quantity {
+    font-size: 12px;
+    font-weight: bold;
+    color: red;
+    border: 1px solid red;
+    background-color: white;
+    /* Highlighted background */
+    padding: 2px 4px;
+    border-radius: 5px;
+    /* Rounded corners */
+}
+
+/*  */
+
+/* Form Styles */
+form {
+    max-width: 400px;
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 4px;
+    margin: 0 auto;
+    position: relative;
+  }
+  form section {
+    width: 100%;
+    min-width: 150px;
+  }
+  
+  /* Form Sections */
+  .section-title {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 16px;
+    padding-right: 40px;
+  }
+ 
+/* Form Group */
+.form-group {
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background: #f9f9f9;
+  }
+  
+  /* Quantity Group */
+  .quantity-group .quantity-row {
+    display: flex;
+    align-items: flex-end; /* Align items vertically */
+    justify-content: space-between;
+    gap: 8px; /* Add consistent spacing */
+  }
+  
+  .quantity-row span {
+    display: flex; /* Ensures proper alignment */
+    align-items: center; /* Center the text vertically */
+    justify-content: center; /* Center text horizontally */
+    font-weight: bold; /* Optional: Make the "12" more prominent */
+    color: #555; /* Optional: Add a consistent color for clarity */
+    padding: .25rem 0; /*OPtional: center the span vertically  with the labels*/
+  }
+  
+  .quantity-col {
+    flex: 1;
+  }
+  
+  .quantity-col label {
+    margin-bottom: 0.25rem;
+  }
+  
+  .quantity-col input {
+    text-align: center;
+  }
+  
+  /* Price Row */
+  .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .price-row input {
+    width: 40%;
+    text-align: center;
+  }
+  
+  /* Form Actions */
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  
+  .btn-clear {
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-add {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-clear:hover {
+    background: #d32f2f;
+  }
+  
+  .btn-add:hover {
+    background: #388e3c;
+  }
