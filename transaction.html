@@ -22,7 +22,7 @@
             <th>Units</th>
             <th>Unit Price</th>
             <th>Sub Total</th>
-            <th>Action</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -37,7 +37,10 @@
             <td>46</td>
             <td>23.26</td>
             <td>1069.96</td>
-            <td><button class="del-btn">DEL</button></td>
+            <td>
+              <button class="edit-btn">EDIT</button>
+              <button class="del-btn">DEL</button>
+            </td>
           </tr>
           <tr>
             <td><span class="number-circle">2</span></td>
@@ -49,7 +52,10 @@
             <td>38</td>
             <td>126.50</td>
             <td>4807.00</td>
-            <td><button class="del-btn">DEL</button></td>
+            <td>
+              <button class="edit-btn">EDIT</button>
+              <button class="del-btn">DEL</button>
+            </td>
           </tr>
           <!-- Repeat rows as needed -->
           <tr>
@@ -62,7 +68,10 @@
             <td>4</td>
             <td>326.50</td>
             <td>1302.00</td>
-            <td><button class="del-btn">DEL</button></td>
+            <td>
+              <button class="edit-btn">EDIT</button>
+              <button class="del-btn">DEL</button>
+            </td>
           </tr>
         </tbody>
         <tfoot>
@@ -83,47 +92,356 @@
           <form id="selling-form">
             <div class="form-group">
               <label for="search">Search for a Product</label>
-              <input type="text" id="search" name="search" placeholder="Search for a Product" />
+              <input
+                type="text"
+                id="search"
+                name="search"
+                placeholder="Search for a Product"
+              />
             </div>
-    
+
             <div class="form-group">
               <label for="product-name">Product Name</label>
-              <input type="text" id="product-name" name="product-name" value="Product A" readonly />
+              <input
+                type="text"
+                id="product-name"
+                name="product-name"
+                value="Product A"
+              />
             </div>
-    
+
             <div class="form-group quantity-group">
               <label>Quantity</label>
               <div class="quantity-row">
                 <div class="quantity-col">
-                  <label for="unit-quantity">Units</label>
-                  <input type="text" id="unit-quantity" name="unit-quantity" value="18 & 5" readonly />
+                  <label for="quantity">Quantity</label>
+                  <input
+                    type="text"
+                    id="quantity"
+                    name="quantity"
+                    value="18 & 5"
+                  />
                 </div>
-                <span>* 12 =</span>
+                <span>* <span id="quantityUnit">12</span> =</span>
                 <div class="quantity-col">
                   <label for="sub-unit">Sub-units</label>
-                  <input type="text" id="sub-unit" name="sub-unit" value="121" readonly />
+                  <input
+                    type="text"
+                    id="sub-unit"
+                    name="sub-unit"
+                    value="121"
+                  />
                 </div>
               </div>
             </div>
-    
+
             <div class="form-group">
               <label for="price">Price</label>
               <div class="price-row">
-                <input type="text" id="price" name="price" value="123.26"  />
-                <span>* 121 =</span>
-                <input type="text" id="total-price" name="total-price" value="1479.12" readonly />
+                <input type="text" id="price" name="price" value="123.26" />
+                <span>* <span id="subunits-span">121</span> =</span>
+                <input
+                  type="text"
+                  id="total-price"
+                  name="total-price"
+                  value="1479.12"
+                  readonly
+                />
               </div>
             </div>
-    
+
             <div class="form-actions">
-              <button type="button" id="clear-form" class="btn-clear">CLEAR</button>
-              <button type="submit" class="btn-add">Add to List</button>
+              <button type="button" id="clear-form" class="btn-clear">
+                CLEAR
+              </button>
+              <button type="submit" id="add-to-list" class="btn-add">
+                Add to List
+              </button>
             </div>
           </form>
         </div>
       </div>
     </div>
-    
 
+    <script>
+      const UtilityHelpers = {
+        // Format number to 2 decimal places and add thousands separator
+        formatNumber(number) {
+          return number.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
+        },
+
+        // Parse a number from a formatted string (removes non-numeric chars except decimal)
+        parseNumber(str) {
+          const cleanStr = str.replace(/[^\d.-]/g, "");
+          const number = parseFloat(cleanStr);
+          return isNaN(number) ? 0 : number;
+        },
+
+        // Validate if string contains only numbers, spaces, ampersand
+        isValidQuantityFormat(str) {
+          return /^\d+(?:\s*&\s*\d+)?$/.test(str.trim());
+        },
+
+        // Validate if string is a valid positive number
+        isValidPrice(str) {
+          const number = this.parseNumber(str);
+          return number >= 0;
+        },
+      };
+
+      const QuantityPriceManager = {
+        // Store DOM elements and values
+        elements: {
+          quantityInput: null,
+          subUnitInput: null,
+          subUnitsSpan: null,
+          priceInput: null,
+          totalPriceInput: null,
+          quantityUnit: null,
+        },
+
+        // Initialize the manager
+        init() {
+          // Get all required elements
+          this.elements = {
+            quantityInput: document.getElementById("quantity"),
+            subUnitInput: document.getElementById("sub-unit"),
+            subUnitsSpan: document.getElementById("subunits-span"),
+            priceInput: document.getElementById("price"),
+            totalPriceInput: document.getElementById("total-price"),
+            quantityUnit: parseInt(
+              document.getElementById("quantityUnit").textContent,
+              10
+            ),
+          };
+
+          // Validate that all elements exist
+          for (const [key, element] of Object.entries(this.elements)) {
+            if (!element && key !== "quantityUnit") {
+              console.error(`Required element ${key} not found`);
+              return false;
+            }
+          }
+
+          this.setupEventListeners();
+          this.initializeValues();
+          return true;
+        },
+
+        // Set up all event listeners
+        setupEventListeners() {
+          // Quantity input handler
+          this.elements.quantityInput.addEventListener("input", (e) => {
+            this.handleQuantityInput(e.target.value);
+          });
+
+          // Price input handler
+          this.elements.priceInput.addEventListener("input", (e) => {
+            this.handlePriceInput(e.target.value);
+          });
+
+          // Handle blur events for formatting
+          this.elements.quantityInput.addEventListener("blur", () => {
+            this.formatQuantityDisplay();
+          });
+
+          this.elements.priceInput.addEventListener("blur", () => {
+            this.formatPriceDisplay();
+          });
+
+          // Add space and tab key handlers for quantity input
+          this.elements.quantityInput.addEventListener("keydown", (e) => {
+            // Check if the pressed key is Space or Tab
+            if (e.key === " " || e.key === "Tab") {
+              const value = e.target.value.trim();
+
+              // Only proceed if there's no & already and the value is a valid number
+              if (!value.includes("&") && /^\d+$/.test(value)) {
+                e.preventDefault(); // Prevent default space/tab behavior
+                this.elements.quantityInput.value = value + " & ";
+
+                // If it was a tab key, keep focus in the input
+                if (e.key === "Tab") {
+                  const cursorPosition =
+                    this.elements.quantityInput.value.length;
+                  this.elements.quantityInput.setSelectionRange(
+                    cursorPosition,
+                    cursorPosition
+                  );
+                }
+              }
+            }
+          });
+          // Add handler for sub-unit input
+          this.elements.subUnitInput.addEventListener("input", (e) => {
+            const subUnits = parseInt(e.target.value);
+            if (!isNaN(subUnits)) {
+              const quantityStr = this.convertSubUnitsToQuantity(subUnits);
+              this.elements.quantityInput.value = quantityStr;
+              this.elements.subUnitsSpan.textContent = subUnits;
+              this.updateTotalPrice();
+            }
+          });
+        },
+
+        // Initialize starting values
+        initializeValues() {
+          if (this.elements.quantityInput.value) {
+            this.handleQuantityInput(this.elements.quantityInput.value);
+          }
+          if (this.elements.priceInput.value) {
+            this.handlePriceInput(this.elements.priceInput.value);
+          }
+        },
+
+        // Handle quantity input changes
+        handleQuantityInput(value) {
+          const isValid = UtilityHelpers.isValidQuantityFormat(value);
+          this.toggleInputError(this.elements.quantityInput, !isValid);
+
+          if (isValid) {
+            const totalSubUnits = this.calculateTotalSubUnits(value);
+            // Update both sub-unit displays
+            this.updateSubUnits(totalSubUnits);
+            this.updateTotalPrice();
+
+            // If the input doesn't match the calculated format, update it
+            const calculatedQuantity =
+              this.convertSubUnitsToQuantity(totalSubUnits);
+            if (value.trim() !== calculatedQuantity) {
+              this.elements.quantityInput.value = calculatedQuantity;
+            }
+          } else {
+            this.updateSubUnits("");
+            this.updateTotalPrice();
+          }
+        },
+        // Handle price input changes
+        handlePriceInput(value) {
+          const isValid = UtilityHelpers.isValidPrice(value);
+          this.toggleInputError(this.elements.priceInput, !isValid);
+
+          if (isValid) {
+            this.updateTotalPrice();
+          } else {
+            this.elements.totalPriceInput.value = "";
+          }
+        },
+
+        // Calculate total sub-units from quantity string
+        calculateTotalSubUnits(quantityStr) {
+          const cleaned = quantityStr.trim().replace(/\s+/g, " ");
+
+          if (cleaned.includes("&")) {
+            const [units, subUnits] = cleaned.split("&").map((part) => {
+              const num = parseInt(part.trim(), 10);
+              return isNaN(num) ? 0 : num;
+            });
+
+            // Validate sub-units don't exceed unit size
+            const validSubUnits =
+              subUnits >= this.elements.quantityUnit
+                ? this.elements.quantityUnit - 1
+                : subUnits;
+
+            return units * this.elements.quantityUnit + validSubUnits;
+          }
+
+          const units = parseInt(cleaned, 10);
+          return isNaN(units) ? 0 : units * this.elements.quantityUnit;
+        },
+
+        // Convert sub-units back to quantity string
+        convertSubUnitsToQuantity(subUnits) {
+          if (!subUnits) return "0";
+
+          const units = Math.floor(subUnits / this.elements.quantityUnit);
+          const remainingSubUnits = subUnits % this.elements.quantityUnit;
+
+          // If we only have sub-units (less than one full unit)
+          if (units === 0) {
+            return `0 & ${remainingSubUnits}`;
+          }
+
+          // If we have exact units (no remaining sub-units)
+          if (remainingSubUnits === 0) {
+            return `${units}`;
+          }
+
+          // If we have both units and sub-units
+          return `${units} & ${remainingSubUnits}`;
+        },
+
+        // Update sub-units in both locations
+        updateSubUnits(value) {
+          this.elements.subUnitInput.value = value;
+          this.elements.subUnitsSpan.textContent = value;
+        },
+
+        // Calculate and update total price
+        updateTotalPrice() {
+          const price = UtilityHelpers.parseNumber(
+            this.elements.priceInput.value
+          );
+          const subUnits =
+            parseInt(this.elements.subUnitsSpan.textContent) || 0;
+          const total = price * subUnits;
+
+          this.elements.totalPriceInput.value =
+            UtilityHelpers.formatNumber(total);
+        },
+
+        // Format quantity input on blur
+        formatQuantityDisplay() {
+          const value = this.elements.quantityInput.value.trim();
+          if (UtilityHelpers.isValidQuantityFormat(value)) {
+            const parts = value.includes("&") ? value.split("&") : [value];
+            const formatted = parts.map((part) => part.trim()).join(" & ");
+            this.elements.quantityInput.value = formatted;
+          }
+        },
+
+        // Format price input on blur
+        formatPriceDisplay() {
+          const value = this.elements.priceInput.value;
+          const number = UtilityHelpers.parseNumber(value);
+          if (number >= 0) {
+            this.elements.priceInput.value =
+              UtilityHelpers.formatNumber(number);
+          }
+        },
+
+        // Toggle error state on inputs
+        toggleInputError(element, isError) {
+          if (isError) {
+            element.classList.add("error");
+          } else {
+            element.classList.remove("error");
+          }
+        },
+
+        // Get current values (for form submission)
+        getValues() {
+          return {
+            quantity: this.elements.quantityInput.value,
+            subUnits: parseInt(this.elements.subUnitInput.value) || 0,
+            unitPrice: UtilityHelpers.parseNumber(
+              this.elements.priceInput.value
+            ),
+            totalPrice: UtilityHelpers.parseNumber(
+              this.elements.totalPriceInput.value
+            ),
+          };
+        },
+      };
+
+      // Initialize when document loads
+      document.addEventListener("DOMContentLoaded", () => {
+        QuantityPriceManager.init();
+      });
+    </script>
   </body>
 </html>
